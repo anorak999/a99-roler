@@ -18,7 +18,7 @@ What the installer sets up:
 - Fresh Debian prerequisites: APT HTTPS transport, CA certificates, GPG/keyring tools, `sudo`, `bash`, `jq`, `lsb-release`, archive tools, XDG tools, DBus user session support, GNOME settings helpers, and Flatpak/GNOME integration dependencies.
 - Base tools: `zsh`, `git`, `curl`, `wget`, `flatpak`, `fzf`, `zoxide`, `eza`, `bat`, `ripgrep`, `fd-find`, `tmux`, `micro`, `htop`, `tldr`, clipboard tools, network tools, and media players.
 - Desktop apps: Telegram Desktop through Flatpak, Visual Studio Code, Zed, GitHub CLI, Docker Engine, Docker Compose plugin, VLC, MPV, and Celluloid.
-- Development runtimes: Node.js 22, npm, pnpm, Bun, Python 3, Java, Go, Rust/Cargo, PHP, Ruby, Perl, LuaRocks, and .NET 8.
+- Development runtimes: Node.js 22, npm, Corepack, yarn, pnpm through npm/Corepack/standalone installer, Bun through the official installer, Python 3, Java, Go, Rust/Cargo, PHP, Ruby, Perl, LuaRocks, and .NET 8.
 - Shell setup: Oh My Zsh, macOS-style zsh theme, zsh syntax highlighting, autosuggestions, completions, modern aliases, PATH setup, and zsh as the default shell.
 - GNOME ricing: media key bindings, screenshot/logout bindings, F11/help conflict cleanup, Dash-to-Dock settings when available, and Dash2Dock Animated styling.
 - Optional AI CLIs: Gemini CLI, Codex CLI, Qoder, and Google Antigravity CLI.

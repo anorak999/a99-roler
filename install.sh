@@ -312,11 +312,19 @@ toolchains() {
   apt_install \
     build-essential cpanminus default-jdk default-jre gcc g++ golang-go make nodejs perl \
     php-cli php-pear python3 python3-full python3-pip python3-venv ruby-full rustc cargo luarocks
+  apt_install_best_effort node-corepack
   sudo npm install -g npm@latest yarn pnpm
   sudo corepack enable || true
+  corepack prepare pnpm@latest --activate || true
+  corepack prepare yarn@stable --activate || true
 
   curl -sSL https://get.pnpm.io/install.sh | SHELL="$(command -v zsh)" sh -
   curl -sSL https://bun.com/install | bash
+  export PNPM_HOME="$HOME/.local/share/pnpm"
+  export BUN_INSTALL="$HOME/.bun"
+  export PATH="$PNPM_HOME:$BUN_INSTALL/bin:$PATH"
+  pnpm --version || true
+  bun --version || true
 
   curl -sSL https://dot.net/v1/dotnet-install.sh -o /tmp/dotnet-install.sh
   chmod +x /tmp/dotnet-install.sh
