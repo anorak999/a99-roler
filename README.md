@@ -20,7 +20,7 @@ What the installer sets up:
 - Desktop apps: Telegram Desktop through Flatpak, Visual Studio Code, Zed, GitHub CLI, Docker Engine, Docker Compose plugin, VLC, MPV, and Celluloid.
 - Development runtimes: Node.js 22, npm, Corepack, yarn, pnpm through npm/Corepack/standalone installer, Bun through the official installer, Python 3, Java, Go, Rust/Cargo, PHP, Ruby, Perl, LuaRocks, and .NET 8.
 - Shell setup: Oh My Zsh, macOS-style zsh theme, zsh syntax highlighting, autosuggestions, completions, modern aliases, PATH setup, and zsh as the default shell.
-- GNOME ricing: media key bindings, screenshot/logout bindings, F11/help conflict cleanup, Dash-to-Dock settings when available, and Dash2Dock Animated styling.
+- GNOME ricing: media key bindings, screenshot/logout bindings, F11/help conflict cleanup, Dash-to-Dock settings, Dash2Dock styling, and GNOME extension setup for `dash-to-dock@micxgx.gmail.com`, `dash2dock-lite@icedman.github.com`, and `dash2dock-animated@icedman.github.com`.
 - Optional AI CLIs: Gemini CLI, Codex CLI, Qoder, and Google Antigravity CLI.
 - Optional kernel/dev tools: Clang, LLVM, ccache, sparse, pahole, cscope, strace, msr-tools, and related low-level development utilities.
 

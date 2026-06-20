@@ -127,6 +127,39 @@ apt_install_best_effort() {
   done
 }
 
+shell_version() {
+  gnome-shell --version 2>/dev/null | awk '{print $3}' | cut -d. -f1,2
+}
+
+install_gnome_extension() {
+  local uuid="$1"
+  local version
+  local info
+  local download_url
+  local zip_file
+  local target_dir
+
+  command -v gnome-shell >/dev/null 2>&1 || return 0
+  command -v jq >/dev/null 2>&1 || return 0
+
+  version="$(shell_version)"
+  [ -n "$version" ] || return 0
+
+  info="$(curl -fsSL "https://extensions.gnome.org/extension-info/?uuid=${uuid}&shell_version=${version}" 2>/dev/null || true)"
+  download_url="$(printf "%s" "$info" | jq -r '.download_url // empty' 2>/dev/null || true)"
+  [ -n "$download_url" ] || return 0
+
+  zip_file="/tmp/${uuid}.zip"
+  target_dir="$HOME/.local/share/gnome-shell/extensions/$uuid"
+  mkdir -p "$target_dir"
+  curl -fsSL "https://extensions.gnome.org${download_url}" -o "$zip_file"
+  unzip -oq "$zip_file" -d "$target_dir"
+
+  if [ -d "$target_dir/schemas" ]; then
+    glib-compile-schemas "$target_dir/schemas" || true
+  fi
+}
+
 fresh_boot_dependencies() {
   sudo apt-get update
   apt_install \
@@ -303,7 +336,7 @@ base_packages() {
   apt_install \
     bat celluloid eza fd-find flatpak fzf git htop lsof micro mpv net-tools ripgrep tldr tmux \
     ufw vlc wl-clipboard wmctrl x11-utils xclip zoxide zsh
-  apt_install_best_effort ftrace-cmd gnome-tweaks ncat
+  apt_install_best_effort ftrace-cmd gnome-shell-extension-dashtodock gnome-tweaks ncat
 }
 
 toolchains() {
@@ -409,6 +442,10 @@ ai_clis() {
 gnome_rice() {
   command -v gsettings >/dev/null 2>&1 || return 0
 
+  install_gnome_extension "dash-to-dock@micxgx.gmail.com"
+  install_gnome_extension "dash2dock-lite@icedman.github.com"
+  install_gnome_extension "dash2dock-animated@icedman.github.com"
+
   gsettings set org.gnome.desktop.wm.keybindings help "[]" || true
   gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "[]" || true
   gsettings set org.gnome.desktop.wm.keybindings modifier-toggle "[]" || true
@@ -434,11 +471,13 @@ gnome_rice() {
 }
 EOF
 
-  gnome-extensions disable dash-to-dock@micxgx.gmail.com 2>/dev/null || true
-  gnome-extensions disable dash2dock-lite@icedman.github.com 2>/dev/null || true
-  gnome-extensions disable dash2dock-animated@icedman.github.com 2>/dev/null || true
-  gnome-extensions enable dash2dock-lite@icedman.github.com 2>/dev/null || true
-  gnome-extensions enable dash2dock-animated@icedman.github.com 2>/dev/null || true
+  if command -v gnome-extensions >/dev/null 2>&1; then
+    gnome-extensions disable dash-to-dock@micxgx.gmail.com 2>/dev/null || true
+    gnome-extensions disable dash2dock-lite@icedman.github.com 2>/dev/null || true
+    gnome-extensions disable dash2dock-animated@icedman.github.com 2>/dev/null || true
+    gnome-extensions enable dash2dock-lite@icedman.github.com 2>/dev/null || true
+    gnome-extensions enable dash2dock-animated@icedman.github.com 2>/dev/null || true
+  fi
 }
 
 chezmoi_tldr() {
