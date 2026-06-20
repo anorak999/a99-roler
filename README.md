@@ -9,10 +9,10 @@ chmod +x install.sh
 ./install.sh
 ```
 
-Curl form after hosting the file:
+Curl form:
 
 ```bash
-curl -fsSL https://your-domain.example/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/anorak999/oneline-debian-bootstrap/main/install.sh | bash
 ```
 
 Skip optional sections:
