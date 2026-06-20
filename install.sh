@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-APP_NAME="Oneline Debian Bootstrap"
-LOG_FILE="${LOG_FILE:-$HOME/oneline-install.log}"
+APP_NAME="a99-roler"
+LOG_FILE="${LOG_FILE:-$HOME/a99-roler-install.log}"
 INSTALL_AI_CLIS="${INSTALL_AI_CLIS:-1}"
 INSTALL_KERNEL_TOOLS="${INSTALL_KERNEL_TOOLS:-1}"
 INSTALL_GUI_APPS="${INSTALL_GUI_APPS:-1}"
@@ -137,8 +137,8 @@ ensure_line() {
 
 write_zsh_block() {
   local file="$HOME/.zshrc"
-  local start="# >>> oneline bootstrap >>>"
-  local end="# <<< oneline bootstrap <<<"
+  local start="# >>> a99-roler bootstrap >>>"
+  local end="# <<< a99-roler bootstrap <<<"
   touch "$file"
   awk -v start="$start" -v end="$end" '
     $0 == start {skip=1; next}
@@ -147,7 +147,7 @@ write_zsh_block() {
   ' "$file" >"$file.tmp"
   mv "$file.tmp" "$file"
   cat >>"$file" <<'EOF'
-# >>> oneline bootstrap >>>
+# >>> a99-roler bootstrap >>>
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/bin:/usr/local/share/dotnet:$PATH"
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="macos-zsh-theme/macos-theme"
@@ -272,7 +272,7 @@ alias kmodules="lsmod | sort"
 alias kins="sudo insmod"
 alias krm="sudo rmmod"
 alias cscope-init="find . -name '*.[chXS]' > cscope.files && cscope -b -q -k"
-# <<< oneline bootstrap <<<
+# <<< a99-roler bootstrap <<<
 EOF
 }
 

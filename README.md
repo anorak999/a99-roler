@@ -1,6 +1,4 @@
-# Oneline Debian Bootstrap
-
-Fresh Debian reinstall bootstrap extracted from `terminal_history_backup.txt`.
+# a99-roler
 
 Run locally:
 
@@ -12,7 +10,7 @@ chmod +x install.sh
 Curl form:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/anorak999/oneline-debian-bootstrap/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/anorak999/a99-roler/main/install.sh | bash
 ```
 
 What the installer sets up:
