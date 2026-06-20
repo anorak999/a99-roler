@@ -15,6 +15,7 @@ curl -fsSL https://raw.githubusercontent.com/anorak999/a99-roler/main/install.sh
 
 What the installer sets up:
 
+- Fresh Debian prerequisites: APT HTTPS transport, CA certificates, GPG/keyring tools, `sudo`, `bash`, `jq`, `lsb-release`, archive tools, XDG tools, DBus user session support, GNOME settings helpers, and Flatpak/GNOME integration dependencies.
 - Base tools: `zsh`, `git`, `curl`, `wget`, `flatpak`, `fzf`, `zoxide`, `eza`, `bat`, `ripgrep`, `fd-find`, `tmux`, `micro`, `htop`, `tldr`, clipboard tools, network tools, and media players.
 - Desktop apps: Telegram Desktop through Flatpak, Visual Studio Code, Zed, GitHub CLI, Docker Engine, Docker Compose plugin, VLC, MPV, and Celluloid.
 - Development runtimes: Node.js 22, npm, pnpm, Bun, Python 3, Java, Go, Rust/Cargo, PHP, Ruby, Perl, LuaRocks, and .NET 8.

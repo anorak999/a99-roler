@@ -22,7 +22,7 @@ BOLD='\033[1m'
 DIM='\033[2m'
 RESET='\033[0m'
 
-STEPS_TOTAL=12
+STEPS_TOTAL=13
 STEP_NO=0
 
 header() {
@@ -125,6 +125,18 @@ apt_install_best_effort() {
   for pkg in "$@"; do
     sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends "$pkg" || true
   done
+}
+
+fresh_boot_dependencies() {
+  sudo apt-get update
+  apt_install \
+    apt-transport-https bash ca-certificates coreutils curl dbus-user-session desktop-file-utils \
+    dirmngr file findutils fontconfig gnupg gpg gpg-agent gzip hostname jq less locales lsb-release \
+    openssh-client passwd procps psmisc sed sudo tar unzip util-linux wget xz-utils zip
+  apt_install_best_effort \
+    dconf-cli gir1.2-gmenu-3.0 glib2.0-bin gnome-browser-connector gnome-shell-extension-prefs \
+    libayatana-appindicator3-1 libglib2.0-bin libnotify-bin policykit-1 software-properties-common \
+    xdg-user-dirs xdg-utils
 }
 
 ensure_line() {
@@ -289,10 +301,9 @@ ensure_git_clone() {
 base_packages() {
   sudo apt-get update
   apt_install \
-    apt-transport-https bat ca-certificates curl desktop-file-utils eza fd-find flatpak fzf git \
-    gpg htop lsof micro mpv net-tools ripgrep sudo tldr tmux unzip ufw vlc wget wl-clipboard \
-    wmctrl x11-utils xclip zoxide zsh celluloid gir1.2-gmenu-3.0 libayatana-appindicator3-1
-  apt_install_best_effort ftrace-cmd ncat
+    bat celluloid eza fd-find flatpak fzf git htop lsof micro mpv net-tools ripgrep tldr tmux \
+    ufw vlc wl-clipboard wmctrl x11-utils xclip zoxide zsh
+  apt_install_best_effort ftrace-cmd gnome-tweaks ncat
 }
 
 toolchains() {
@@ -456,6 +467,7 @@ main() {
   esac
 
   sudo_keepalive
+  run_step "Installing fresh Debian prerequisites" fresh_boot_dependencies
   run_step "Installing base Debian packages" base_packages
   run_step "Installing language runtimes and package managers" toolchains
   run_step "Installing kernel and tracing tools" kernel_tools
